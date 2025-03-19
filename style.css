@@ -36,3 +36,7 @@
     background: #FFFFFF;
     border-top: 2px solid #06A7A9;
   }
+  [role="tab"]:focus {
+    background: #FFFFFF;
+    border-top: 2px solid #06A7A9;
+  }
