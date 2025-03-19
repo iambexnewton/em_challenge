@@ -30,7 +30,9 @@ export function renderTabs() {
         .map(
             (tab, index) =>
                 `<button
+            id="tab-${tab.id}"
         aria-selected="${index === 0 ? 'true' : 'false'}" 
+        tabindex="${index === 0 ? '0' : '-1'}"
      role='tab'
      >${tab.title}</button>`
         )
@@ -41,7 +43,10 @@ export function renderTabs() {
             (tab) =>
                 `<div
      role='tabpanel'
+     id="panel-${tab.id}" 
+        aria-labelledby="tab-${tab.id}"
      >
+    
      <h2>${tab.content.heading}</h2>
      <p>${tab.content.body}</p></div>`
         )
@@ -61,14 +66,27 @@ export function renderTabs() {
 
 export function tabFunctionality() {
     const tabs = document.querySelectorAll('[role="tab"]');
+    const panels = document.querySelectorAll('[role="tabpanel"]');
 
     tabs.forEach((tab) => {
         tab.addEventListener("click", (e) => {
             console.log("tab clicked", e);
             console.log("tab clicked", e.currentTarget);
             e.preventDefault();
+            switchTab(e.currentTarget);
         });
     });
+
+    function switchTab(newTab) {
+
+        tabs.forEach(tab => {
+            tab.setAttribute('aria-selected', 'false');
+            tab.setAttribute('tabindex', '-1');
+        });
+        newTab.setAttribute('aria-selected', 'true');
+        newTab.setAttribute('tabindex', '0');
+
+    }
 }
 
 document.querySelector("#app").innerHTML = renderTabs(tabsData);
