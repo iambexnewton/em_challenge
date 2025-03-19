@@ -64,4 +64,18 @@ export function renderTabs() {
 </div>
 `;
 }
+
+export function tabFunctionality() {
+    const tabs = document.querySelectorAll('[role="tab"]');
+
+    tabs.forEach(tab => {
+        tab.addEventListener('click', e => {
+            console.log("tab clicked", e)
+            console.log("tab clicked", e.currentTarget)
+            e.preventDefault();
+        });
+    });
+}
+
+
 document.querySelector('#app').innerHTML = renderTabs(tabsData);
